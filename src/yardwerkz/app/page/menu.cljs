@@ -1,17 +1,17 @@
-(ns hotplates.app.page.menu
+(ns yardwerkz.app.page.menu
   (:require
    [clojure.string :as str]
    [uix.core :as uix :refer [defui $]]
    [uix.dom :as dom]
-   [hotplates.app.config :as config]
-   [hotplates.app.db :as db]
+   [yardwerkz.app.config :as config]
+   [yardwerkz.app.db :as db]
    [reitit.frontend.easy :as rfe]
-   [hotplates.app.event-bus :as eb]
+   [yardwerkz.app.event-bus :as eb]
    ["react" :as react]
    ["@js-joda/core" :refer [LocalDate LocalTime ChronoUnit ZonedDateTime ZoneId]]
    ["@js-joda/timezone"]
    ["@tanstack/react-query" :refer [useQuery useQueryClient useMutation]]
-   [hotplates.app.util :refer [pathom-op to-js from-js]]
+   [yardwerkz.app.util :refer [pathom-op to-js from-js]]
    [malli.core :as m]
    [malli.error :as me]))
 

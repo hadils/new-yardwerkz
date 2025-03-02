@@ -1,5 +1,5 @@
 (ns repl
-  (:require [hotplates :as main]
+  (:require [yardwerkz :as main]
             [com.biffweb :as biff :refer [q]]
             [clojure.edn :as edn]
             [clojure.java.io :as io]))
@@ -69,7 +69,7 @@
     (q db
        '{:find (pull user [*])
          :where [[user :user/email]]}))
-  
+
   (let [{:keys [biff/db] :as ctx} (get-context)]
     (q db
        '{:find (pull chef [*])

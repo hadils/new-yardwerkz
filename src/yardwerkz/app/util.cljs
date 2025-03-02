@@ -1,4 +1,4 @@
-(ns hotplates.app.util
+(ns yardwerkz.app.util
   (:require
    ["axios$default" :as axios]
    [camel-snake-kebab.core :as csk]

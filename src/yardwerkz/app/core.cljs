@@ -1,11 +1,11 @@
-(ns hotplates.app.core
+(ns yardwerkz.app.core
   (:require
    [uix.core :as uix :refer [defui $]]
    [uix.dom :as dom]
-   [hotplates.app.config :as config]
-   [hotplates.app.db :as db]
-   [hotplates.app.page.menu :refer [menu-page]]
-   [hotplates.app.page.profile :refer [profile-page]]
+   [yardwerkz.app.config :as config]
+   [yardwerkz.app.db :as db]
+   [yardwerkz.app.page.menu :refer [menu-page]]
+   [yardwerkz.app.page.profile :refer [profile-page]]
    [reitit.coercion.malli]
    [reitit.coercion :as coercion]
    [reitit.frontend :as rf]

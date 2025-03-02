@@ -1,7 +1,7 @@
-(ns hotplates.ui
+(ns yardwerkz.ui
   (:require [cheshire.core :as cheshire]
             [clojure.java.io :as io]
-            [hotplates.settings :as settings]
+            [yardwerkz.settings :as settings]
             [com.biffweb :as biff]
             [ring.middleware.anti-forgery :as csrf]
             [ring.util.response :as ring-response]

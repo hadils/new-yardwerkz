@@ -16,7 +16,7 @@
  :builds {:app {:target     :browser
                 :output-dir "target/resources/public/cljs"
                 :asset-path "/cljs"
-                :modules    {:app {:init-fn hotplates.app.core/init}}
+                :modules    {:app {:init-fn yardwerkz.app.core/init}}
                 :js-options {:js-provider :external
                              :external-index "target/gen/libs.js"
                              :external-index-format :esm}

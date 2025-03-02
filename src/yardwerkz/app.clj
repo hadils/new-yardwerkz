@@ -1,8 +1,8 @@
-(ns hotplates.app
+(ns yardwerkz.app
   (:require [com.biffweb :as biff :refer [q]]
-            [hotplates.middleware :as mid]
-            [hotplates.ui :as ui]
-            [hotplates.settings :as settings]
+            [yardwerkz.middleware :as mid]
+            [yardwerkz.ui :as ui]
+            [yardwerkz.settings :as settings]
             [rum.core :as rum]
             [xtdb.api :as xt]
             [ring.adapter.jetty9 :as jetty]
@@ -47,7 +47,7 @@
    [:.text-gray-600 (biff/format-date sent-at "dd MMM yyyy HH:mm:ss")]
    [:div text]])
 
-(defn notify-clients [{:keys [hotplates/chat-clients]} tx]
+(defn notify-clients [{:keys [yardwerkz/chat-clients]} tx]
   (doseq [[op & args] (::xt/tx-ops tx)
           :when (= op ::xt/put)
           :let [[doc] args]
@@ -129,7 +129,7 @@
        [:.h-6]
        (chat ctx))))
 
-(defn ws-handler [{:keys [hotplates/chat-clients] :as ctx}]
+(defn ws-handler [{:keys [yardwerkz/chat-clients] :as ctx}]
   {:status 101
    :headers {"upgrade" "websocket"
              "connection" "upgrade"}

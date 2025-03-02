@@ -1,12 +1,12 @@
-(ns hotplates
+(ns yardwerkz
   (:require [com.biffweb :as biff]
-            [hotplates.email :as email]
-            [hotplates.app :as app]
-            [hotplates.home :as home]
-            [hotplates.middleware :as mid]
-            [hotplates.ui :as ui]
-            [hotplates.worker :as worker]
-            [hotplates.schema :as schema]
+            [yardwerkz.email :as email]
+            [yardwerkz.app :as app]
+            [yardwerkz.home :as home]
+            [yardwerkz.middleware :as mid]
+            [yardwerkz.ui :as ui]
+            [yardwerkz.worker :as worker]
+            [yardwerkz.schema :as schema]
             [clojure.test :as test]
             [clojure.tools.logging :as log]
             [clojure.tools.namespace.repl :as tn-repl]
@@ -18,7 +18,7 @@
             [com.wsscode.pathom3.connect.operation :as pco]
             [com.wsscode.pathom3.connect.planner :as pcp]
             [com.wsscode.pathom3.connect.runner :as pcr]
-            [hotplates.util :as util]
+            [yardwerkz.util :as util]
             [reitit.ring :as reitit-ring])
   (:gen-class))
 
@@ -49,7 +49,7 @@
   (biff/add-libs)
   (biff/eval-files! ctx)
   (generate-assets! ctx)
-  (test/run-all-tests #"hotplates.*-test"))
+  (test/run-all-tests #"yardwerkz.*-test"))
 
 (def malli-opts
   {:registry (malr/composite-registry
@@ -80,7 +80,7 @@
    :biff.beholder/on-save #'on-save
    :biff.middleware/on-error #'ui/on-error
    :biff.xtdb/tx-fns biff/tx-fns
-   :hotplates/chat-clients (atom #{})})
+   :yardwerkz/chat-clients (atom #{})})
 
 (defonce system (atom {}))
 

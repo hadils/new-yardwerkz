@@ -1,7 +1,7 @@
-(ns hotplates.app.db
+(ns yardwerkz.app.db
   (:require
    [clojure.string :as str]
-   [hotplates.app.config :as config]
+   [yardwerkz.app.config :as config]
    [datascript.core :as d]
    ["react" :as react]))
 

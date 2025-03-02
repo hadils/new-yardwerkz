@@ -1,3 +1,3 @@
-(ns hotplates.settings)
+(ns yardwerkz.settings)
 
 (def app-name "My Application")

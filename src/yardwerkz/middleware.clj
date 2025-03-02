@@ -1,4 +1,4 @@
-(ns hotplates.middleware
+(ns yardwerkz.middleware
   (:require [com.biffweb :as biff]
             [cognitect.transit :as t]
             [muuntaja.core :as m]

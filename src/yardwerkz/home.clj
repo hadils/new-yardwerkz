@@ -1,9 +1,9 @@
-(ns hotplates.home
+(ns yardwerkz.home
   (:require [clj-http.client :as http]
             [com.biffweb :as biff]
-            [hotplates.middleware :as mid]
-            [hotplates.ui :as ui]
-            [hotplates.settings :as settings]
+            [yardwerkz.middleware :as mid]
+            [yardwerkz.ui :as ui]
+            [yardwerkz.settings :as settings]
             [rum.core :as rum]
             [xtdb.api :as xt]))
 

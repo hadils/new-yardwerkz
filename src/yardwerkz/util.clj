@@ -1,4 +1,4 @@
-(ns hotplates.util
+(ns yardwerkz.util
   (:require [clojure.walk :as walk]
             [com.biffweb :as biff]
             [com.wsscode.pathom3.connect.operation :as pco]

@@ -1,4 +1,4 @@
-(ns hotplates.app.event-bus)
+(ns yardwerkz.app.event-bus)
 
 (defonce listeners (atom {}))
 

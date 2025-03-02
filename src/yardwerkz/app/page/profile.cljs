@@ -1,11 +1,10 @@
-(ns hotplates.app.page.profile
+(ns yardwerkz.app.page.profile
   (:require
    [uix.core :as uix :refer [defui $]]
    [uix.dom :as dom]
    [reitit.frontend.easy :as rfe]
    ["@tanstack/react-query" :refer [useQuery useQueryClient]]
-   [hotplates.app.util :refer [pathom-op to-js from-js]]))
-
+   [yardwerkz.app.util :refer [pathom-op to-js from-js]]))
 
 (def chef-id  #uuid "7a241bf8-0b79-418e-8ea4-d1714a8e6c4a")
 

@@ -1,8 +1,8 @@
-(ns hotplates.email
+(ns yardwerkz.email
   (:require [camel-snake-kebab.core :as csk]
             [camel-snake-kebab.extras :as cske]
             [clj-http.client :as http]
-            [hotplates.settings :as settings]
+            [yardwerkz.settings :as settings]
             [clojure.tools.logging :as log]
             [rum.core :as rum]))
 

@@ -21,4 +21,4 @@
   :prod {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                     "-XX:+CrashOnOutOfMemoryError"
                     "-Dbiff.env.BIFF_PROFILE=prod"]
-         :main-opts ["-m" "hotplates"]}}}
+         :main-opts ["-m" "yardwerkz"]}}}

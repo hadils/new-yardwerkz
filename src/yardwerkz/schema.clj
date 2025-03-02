@@ -1,4 +1,4 @@
-(ns hotplates.schema)
+(ns yardwerkz.schema)
 
 (def schema
   {:user/id :uuid

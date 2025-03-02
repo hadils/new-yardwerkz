@@ -36,9 +36,9 @@
  :biff.system-properties/clojure.tools.logging.factory "clojure.tools.logging.impl/slf4j-factory"
 
  :biff.tasks/server                 #biff/env DOMAIN
- :biff.tasks/main-ns                hotplates
- :biff.tasks/on-soft-deploy         "\"(hotplates/on-save @hotplates/system)\""
- :biff.tasks/generate-assets-fn     hotplates/generate-assets!
+ :biff.tasks/main-ns                yardwerkz
+ :biff.tasks/on-soft-deploy         "\"(yardwerkz/on-save @yardwerkz/system)\""
+ :biff.tasks/generate-assets-fn     yardwerkz/generate-assets!
  :biff.tasks/css-output             "target/resources/public/css/main.css"
  :biff.tasks/deploy-untracked-files [#ref [:biff.tasks/css-output]
                                      "config.env"]

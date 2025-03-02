@@ -1,0 +1,118 @@
+(ns hotplates
+  (:require [com.biffweb :as biff]
+            [hotplates.email :as email]
+            [hotplates.app :as app]
+            [hotplates.home :as home]
+            [hotplates.middleware :as mid]
+            [hotplates.ui :as ui]
+            [hotplates.worker :as worker]
+            [hotplates.schema :as schema]
+            [clojure.test :as test]
+            [clojure.tools.logging :as log]
+            [clojure.tools.namespace.repl :as tn-repl]
+            [malli.core :as malc]
+            [malli.registry :as malr]
+            [nrepl.cmdline :as nrepl-cmd]
+            [com.wsscode.pathom3.connect.indexes :as pci]
+            [com.wsscode.pathom3.interface.eql :as p.eql]
+            [com.wsscode.pathom3.connect.operation :as pco]
+            [com.wsscode.pathom3.connect.planner :as pcp]
+            [com.wsscode.pathom3.connect.runner :as pcr]
+            [hotplates.util :as util]
+            [reitit.ring :as reitit-ring])
+  (:gen-class))
+
+(def modules
+  [app/module
+   (biff/authentication-module {})
+   home/module
+   schema/module
+   worker/module])
+
+(def router (reitit-ring/router
+             [["" {:middleware [mid/wrap-site-defaults]}
+               (keep :routes modules)]
+              ["" {:middleware [mid/wrap-api-defaults]}
+               (keep :api-routes modules)]]))
+
+(def handler (-> (biff/reitit-handler {:router router})
+                 mid/wrap-base-defaults))
+
+(def static-pages (apply biff/safe-merge (map :static modules)))
+
+(defn generate-assets! [ctx]
+  (biff/export-rum static-pages "target/resources/public")
+  (biff/delete-old-files {:dir "target/resources/public"
+                          :exts [".html"]}))
+
+(defn on-save [ctx]
+  (biff/add-libs)
+  (biff/eval-files! ctx)
+  (generate-assets! ctx)
+  (test/run-all-tests #"hotplates.*-test"))
+
+(def malli-opts
+  {:registry (malr/composite-registry
+              malc/default-registry
+              (apply biff/safe-merge (keep :schema modules)))})
+
+(def pathom-env (pci/register
+                 (concat
+                  (mapcat :resolvers modules)
+                  (mapcat :mutations modules)
+                  (util/pull-resolvers malli-opts))))
+
+(defn merge-context [ctx]
+  (-> ctx
+      (biff/assoc-db)
+      (merge pathom-env
+             {:biff/router router
+              :biff/now (java.time.Instant/now)})
+      (pcp/with-plan-cache (atom {}))
+      (pcr/with-resolver-cache (atom {}))))
+
+(def initial-system
+  {:biff/modules #'modules
+   :biff/merge-context-fn #'merge-context
+   :biff/send-email #'email/send-email
+   :biff/handler #'handler
+   :biff/malli-opts #'malli-opts
+   :biff.beholder/on-save #'on-save
+   :biff.middleware/on-error #'ui/on-error
+   :biff.xtdb/tx-fns biff/tx-fns
+   :hotplates/chat-clients (atom #{})})
+
+(defonce system (atom {}))
+
+(def components
+  [biff/use-aero-config
+   biff/use-xtdb
+   biff/use-queues
+   biff/use-xtdb-tx-listener
+   biff/use-htmx-refresh
+   biff/use-jetty
+   biff/use-chime
+   biff/use-beholder])
+
+(defn start []
+  (let [new-system (reduce (fn [system component]
+                             (log/info "starting:" (str component))
+                             (component system))
+                           initial-system
+                           components)]
+    (reset! system new-system)
+    (generate-assets! new-system)
+    (log/info "System started.")
+    (log/info "Go to" (:biff/base-url new-system))
+    new-system))
+
+(defn -main []
+  (let [{:keys [biff.nrepl/args]} (start)]
+    (apply nrepl-cmd/-main args)))
+
+(defn refresh []
+  (doseq [f (:biff/stop @system)]
+    (log/info "stopping:" (str f))
+    (f))
+  (tn-repl/refresh :after `start)
+  :done)

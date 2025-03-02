@@ -1,0 +1,27 @@
+#_[{:db/doc-type :user
+    :xt/id :db.id/user-a
+    :user/email "a@example.com"
+    :user/foo "Some Value"
+    :user/joined-at :db/now}
+   {:db/doc-type :msg
+    :msg/user :db.id/user-a
+    :msg/text "hello there"
+    :msg/sent-at :db/now}]
+[{:db/doc-type :user
+  :xt/id :db.id/user-a
+  :user/email "a@example.com"
+  :user/joined-at :db/now}
+ {:db/doc-type :chef
+  :xt/id :db.id/chef-a
+  :chef/user :db.id/user-a
+  :chef/name "Julia"
+  :chef/description "An excellent chef"
+  :chef/background-image "https://picsum.photos/seed/6/800/600"
+  :chef/profile-image "https://picsum.photos/seed/7/300/300"
+  :chef/food-photos [{:src "https://picsum.photos/seed/1/300/300", :caption "Fettucine Alfredo"}
+                     {:src "https://picsum.photos/seed/2/300/300", :caption "Guacamole"}
+                     {:src "https://picsum.photos/seed/3/300/300", :caption "Eats!"}
+                     {:src "https://picsum.photos/seed/4/300/300", :caption "Food"}
+                     {:src "https://picsum.photos/seed/5/300/300", :caption "Delicious"}]
+  :chef/created-at :db/now
+  :chef/updated-at :db/now}]

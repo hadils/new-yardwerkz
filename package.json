@@ -1,0 +1,35 @@
+{
+  "name": "hotplates-biff",
+  "version": "1.0.0",
+  "description": "This is the starter project for Biff.",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start:libs": "mkdir -p target/gen && touch target/gen/libs.js && node watch.mjs",
+    "build:libs": "node build.mjs"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@js-joda/core": "^5.6.4",
+    "@js-joda/timezone": "^2.21.2",
+    "@tanstack/react-query": "5.66.7",
+    "@tanstack/react-query-devtools": "^5.66.7",
+    "axios": "^1.7.9",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "tailwindcss": "^4.0.1",
+    "use-sync-external-store": "^1.4.0"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@tanstack/eslint-plugin-query": "^5.66.1",
+    "daisyui": "^5.0.0-beta.9",
+    "esbuild": "^0.25.0",
+    "shadow-cljs": "^2.28.20"
+  }
+}

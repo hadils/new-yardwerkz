@@ -1,0 +1,24 @@
+{:nrepl {:port 8777}
+ :source-paths ["src"]
+ :dependencies [[binaryage/devtools "1.0.7"]
+                [com.pitch/uix.core "1.3.1"]
+                [com.pitch/uix.dom "1.3.1"]
+                [cider/cider-nrepl "0.51.1"]
+                [refactor-nrepl/refactor-nrepl "3.10.0"]
+                [datascript/datascript "1.7.4"]
+                [metosin/reitit "0.8.0-alpha1"]
+                [com.cognitect/transit-cljs "0.8.280"]
+                [com.wsscode/pathom3 "2025.01.16-alpha"]
+                [camel-snake-kebab/camel-snake-kebab "0.4.3"]
+                [com.widdindustries/time-literals "0.1.10"]
+                [metosin/malli "0.17.0"]]
+ :dev-http {8090 "target/resources/public"}
+ :builds {:app {:target     :browser
+                :output-dir "target/resources/public/cljs"
+                :asset-path "/cljs"
+                :modules    {:app {:init-fn hotplates.app.core/init}}
+                :js-options {:js-provider :external
+                             :external-index "target/gen/libs.js"
+                             :external-index-format :esm}
+                :compiler-options {:source-map true
+                                   :source-map-include-sources-content true}}}}

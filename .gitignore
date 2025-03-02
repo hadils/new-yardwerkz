@@ -14,3 +14,7 @@
 .lsp/
 .portal/
 .shadow-cljs/
+.expo/
+.lsp/
+app/
+.cljkondo/.cache/

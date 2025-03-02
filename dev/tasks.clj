@@ -37,7 +37,6 @@
       (shell "clj" "-M:dev" "dev"))
     (do
       (tasks/future (shell "npm run start:libs"))
-      (tasks/future {shell "npx tailwindcss -i resources/public/css/tailwind.css -o target/resource/public/css/main.css"})
       (tasks/future (shell "npx shadow-cljs watch app"))
       (tasks/dev))))
 

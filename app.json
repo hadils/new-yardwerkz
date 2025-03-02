@@ -1,0 +1,14 @@
+{
+  "expo": {
+    "name": "yardwerkz",
+    "slug": "yardwerkz",
+    "version": "1.0.0",
+    "entryPoint": "app/index.js",
+    "android": {
+      "package": "com.hadils2.yardwerkz"
+    },
+    "ios": {
+      "bundleIdentifier": "com.hadils2.yardwerkz"
+    }
+  }
+}

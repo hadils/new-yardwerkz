@@ -24,7 +24,6 @@
    - Regenerate static HTML and CSS files
    - Run tests
 
-   Starts the esbuild process.
    Also starts the Shadow CLJS watcher."
   []
   (if-not (fs/exists? "target/resources")
@@ -36,7 +35,7 @@
       (io/make-parents "target/resources/_")
       (shell "clj" "-M:dev" "dev"))
     (do
-      (tasks/future (shell "npm run start:libs"))
+      #_(tasks/future (shell "npm run start:libs")) ; don't use esbuild for react-native``
       (tasks/future (shell "npx shadow-cljs watch app"))
       (tasks/dev))))
 

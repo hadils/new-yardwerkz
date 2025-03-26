@@ -18,3 +18,5 @@
 .lsp/
 app/
 .cljkondo/.cache/
+.expo/
+.expo/

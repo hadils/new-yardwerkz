@@ -6,7 +6,7 @@
    [com.wsscode.pathom3.connect.operation.transit :as pcot]))
 
 (defn to-js
-  "Convert cljs data to js. Keywords are converted to camelCase and strings."
+  "Convert cljs data to js. Keywords are converted to camelCase strings."
   [cljs-data]
   (clj->js cljs-data :keyword-fn #(-> % name csk/->camelCase)))
 

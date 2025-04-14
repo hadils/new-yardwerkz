@@ -18,5 +18,10 @@
 .lsp/
 app/
 .cljkondo/.cache/
-.expo/
-.expo/
+/.expo/
+/.DS_Store
+/.eslintrc.js
+/out/
+/app/
+/ios/
+/android/

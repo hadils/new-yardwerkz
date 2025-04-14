@@ -1,6 +1,5 @@
 (ns yardwerkz.app.util
   (:require
-   ["axios$default" :as axios]
    [camel-snake-kebab.core :as csk]
    [cognitect.transit :as t]
    [com.wsscode.pathom3.connect.operation.transit :as pcot]))
@@ -26,20 +25,20 @@
             :else m))]
     (keys-fn (js->clj js-data))))
 
-(defn pathom-op
-  [entity eql]
-  (axios/post "/api/v1/pathom"
-              {:pathom/entity entity
-               :pathom/eql eql
-               :pathom/lenient-mode? true}
-              (to-js
-               {:headers {"Accept" "application/transit+json"
-                          "Content-Type" "application/transit+json"}
-                :transform-request (fn [data]
-                                     (let [writer (t/writer :json-verbose
-                                                            {:handlers pcot/write-handlers})]
-                                       (t/write writer data)))
-                :transform-response (fn [data]
-                                      (let [reader (t/reader :json-verbose
-                                                             {:handlers  pcot/read-handlers})]
-                                        (t/read reader data)))})))
+#_(defn pathom-op
+    [entity eql]
+    (axios/post "/api/v1/pathom"
+                {:pathom/entity entity
+                 :pathom/eql eql
+                 :pathom/lenient-mode? true}
+                (to-js
+                 {:headers {"Accept" "application/transit+json"
+                            "Content-Type" "application/transit+json"}
+                  :transform-request (fn [data]
+                                       (let [writer (t/writer :json-verbose
+                                                              {:handlers pcot/write-handlers})]
+                                         (t/write writer data)))
+                  :transform-response (fn [data]
+                                        (let [reader (t/reader :json-verbose
+                                                               {:handlers  pcot/read-handlers})]
+                                          (t/read reader data)))})))

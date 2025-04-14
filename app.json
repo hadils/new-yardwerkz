@@ -9,6 +9,22 @@
     },
     "ios": {
       "bundleIdentifier": "com.hadils2.yardwerkz"
-    }
+    },
+    "web": {
+      "bundler": "metro"
+    },
+    "plugins": [
+      [
+        "expo-font",
+        {
+          "fonts": [
+            "node_modules/@expo-google-fonts/lato/100Thin/Lato_100Thin.ttf",
+            "node_modules/@expo-google-fonts/lato/300Light/Lato_300Light.ttf",
+            "node_modules/@expo-google-fonts/lato/400Regular/Lato_400Regular.ttf",
+            "node_modules/@expo-google-fonts/lato/700Bold/Lato_700Bold.ttf"
+          ]
+        }
+      ]
+    ]
   }
 }

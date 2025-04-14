@@ -5,6 +5,12 @@
         ring/ring-defaults                  {:mvn/version "0.3.4"}
         org.clojure/clojure                 {:mvn/version "1.12.0"}
         com.wsscode/pathom3                 {:mvn/version "2025.01.16-alpha"}
+        missionary/missionary               {:mvn/version "b.44"}
+        com.taoensso/telemere               {:mvn/version "1.0.0-RC5"}
+        metosin/reitit                      {:mvn/version "0.8.0"}
+        metosin/malli                       {:mvn/version "0.17.0"}
+        cider/cider-nrepl                   {:mvn/version "0.52.0"}
+        refactor-nrepl/refactor-nrepl       {:mvn/version "3.10.0"}
 
         ;; Notes on logging: https://gist.github.com/jacobobryant/76b7a08a07d5ef2cc076b048d078f1f3
         org.slf4j/slf4j-simple     {:mvn/version "2.0.0-alpha5"}
@@ -21,4 +27,14 @@
   :prod {:jvm-opts ["-XX:-OmitStackTraceInFastThrow"
                     "-XX:+CrashOnOutOfMemoryError"
                     "-Dbiff.env.BIFF_PROFILE=prod"]
-         :main-opts ["-m" "yardwerkz"]}}}
+         :main-opts ["-m" "yardwerkz"]}
+  :cljs {:extra-paths ["dev" "test"]
+         :extra-deps
+         {thheller/shadow-cljs {:mvn/version "2.28.22"}
+          binaryage/devtools {:mvn/version "1.0.7"}
+          com.pitch/uix.core {:mvn/version "1.4.2"}
+          com.pitch/uix.dom  {:mvn/version "1.4.2"}
+          com.cognitect/transit-cljs {:mvn/version "0.8.280"}
+          camel-snake-kebab/camel-snake-kebab {:mvn/version "0.4.3"}
+          com.widdindustries/time-literals {:mvn/version "0.1.10"}
+          re-frame/re-frame {:mvn/version "1.4.3"}}}}}

@@ -35,8 +35,7 @@
       (io/make-parents "target/resources/_")
       (shell "clj" "-M:dev" "dev"))
     (do
-      #_(tasks/future (shell "npm run start:libs")) ; don't use esbuild for react-native``
-      (tasks/future (shell "npx shadow-cljs watch app"))
+      (tasks/future (shell "npx" "shadow-cljs" "watch" "app"))
       (tasks/dev))))
 
 (defn deploy

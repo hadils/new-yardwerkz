@@ -1,88 +1,46 @@
 (ns yardwerkz.app.core
-  (:require [react-native :as rn]
+  (:require [react :as r]
+            [react-native :as rn]
             ["expo" :refer [registerRootComponent]]
             [uix.core :as uix :refer [$ defui]]
-            ["reactotron-react-native$default" :as Reactotron]
+            #_["reactotron-react-native$default" :as Reactotron]
             [yardwerkz.app.navigation :as nav]
+            [yardwerkz.app.styles :as s]
             ["react-native-safe-area-context" :refer [SafeAreaProvider SafeAreaView]]
+            ["@react-navigation/native" :refer [useNavigation]]
+            ["expo-font" :refer [getLoadedFonts]]
             [yardwerkz.app.util :as util]
-            [reitit.core :as r]
-            [reitit.frontend :as rf]
-            [refx.alpha :as refx]))
-(when js/goog.DEBUG
-  (.. Reactotron configure useReactNative connect))
+            [reitit.core :as reitit]
+            [taoensso.telemere :as t]))
 
-(def styles (rn/StyleSheet.create
-             (util/to-js
-              {:container
-               {:flex true
-                :justify-content "center"
-                :align-items "center"}
-               :screen
-               {:font-size 24
-                :font-weight "bold"}})))
+#_(when js/goog.DEBUG
+    (.. Reactotron configure useReactNative connect))
 
 (defui screen-a []
-  ($ SafeAreaView {:style styles.container}
-     ($ rn/Text {:style styles.screen} "Screen A")
-     ($ rn/Button {:title "Go to screen B" :on-press #(refx/dispatch [:nav/navigate :b {} {:qp 1}])})))
+  (let [navigation (useNavigation)]
+    (js/console.log "loaded fonts:" (getLoadedFonts))
+    ($ SafeAreaView {:style s/styles.container}
+       ($ rn/Text {:style s/styles.heading} "Screen A")
+       ($ rn/Button {:on-press #(.navigate navigation "B") :title "Go to screen B"}))))
 
 (defui screen-b []
-  ($ SafeAreaView {:style styles.container}
-     ($ rn/Text {:style styles.screen} "Screen B")
-     ($ rn/Button {:title "Go back" :on-press #(refx/dispatch [:nav/go-back])})))
+  (let [navigation (useNavigation)]
+    ($ SafeAreaView {:style s/styles.container}
+       ($ rn/Text {:style s/styles.heading} "Screen B")
+       ($ rn/Button {:on-press #(.goBack navigation) :title "Go back"}))))
 
-(defui screen-404-error []
-  ($ SafeAreaView {:style styles.container}
-     ($ rn/Text {:style styles.screen} "Screen not found")))
-
-(def example-routes
-  (rf/router
-   ["" (nav/stack-navigator)
-    ["/a" {:name :a :screen screen-a}]
-    ["/b" {:name :b :screen screen-b}]]))
-
-(comment
-  (rf/match-by-path example-routes "/a"))
-
-(def animated-timing (.. rn/Animated -timing))
-
-(def animated-view (.. rn/Animated -View))
-
-(defui old-root []
-  (let [fade-anim (rn/useAnimatedValue 0)
-        fade-in (fn [] (.start
-                        (animated-timing
-                         fade-anim
-                         (util/to-js
-                          {:toValue 1
-                           :duration 5000
-                           :useNativeDriver true}))))
-        fade-out (fn [] (.start
-                         (animated-timing
-                          fade-anim
-                          (util/to-js
-                           {:toValue 0
-                            :duration 3000
-                            :useNativeDriver true}))))]
-    #_(js/console.log "fade-anim" (.isExtensible js/Object fade-anim) fade-anim animated-view)
-    ($ SafeAreaProvider
-       ($ SafeAreaView {:style {:flex true :justify-content "center" :align-items "center"}}
-          ($ animated-view {:opacity fade-anim}
-             ($ rn/Text {:style {:fontSize 24 :fontWeight "bold"}} "Fading in and out"))
-          ($ rn/Button {:on-press fade-in :title  "Fade In"})
-          ($ rn/Button {:on-press fade-out :title "Fade Out"})))))
+(def example-router
+  (nav/native-stack
+   [["/a" {:name "A" :component screen-a}]
+    ["/b" {:name "B" :component screen-b}]]))
 
 (defui root []
-  (let [match (refx/use-sub [:nav/match])]
-    (if match
-      ($ SafeAreaProvider
-         ($ nav/display-screen {:match match}))
-      ($ screen-404-error))))
+  (let [[loaded? error] (s/use-fonts)]
+    (js/console.log "error = " error)
+    ($ r/StrictMode
+       ($ SafeAreaProvider
+          (when loaded?
+            ($ nav/navigation-container {:router example-router}))))))
 
 (defn init []
-  (refx/dispatch [:nav/start example-routes])
   (registerRootComponent (uix/as-react root)))
-
-(comment
-  @refx.db/app-db)
